@@ -1,0 +1,72 @@
+/* ページ全体 */
+body {
+  font-family: sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+/* 見出し */
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* カテゴリー見出し */
+h2 {
+  margin-top: 40px;
+  border-bottom: 2px solid #333;
+  padding-bottom: 5px;
+}
+
+/* 音源リストを横並びに */
+.sound-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  margin-top: 15px;
+}
+
+/* 各音源カード */
+.sound-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  width: 180px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* サウンド名 */
+.sound-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.1em;
+}
+
+/* 操作ボタン＆スライダー */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ボタン */
+.controls button {
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+.controls button:hover {
+  background: #0056b3;
+}
+
+/* スライダー */
+.controls input[type="range"] {
+  width: 100%;
+}

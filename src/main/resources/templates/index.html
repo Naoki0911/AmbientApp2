@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Ambient Sound App</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+  <h1>環境音プレイヤー</h1>
+
+  <!-- カテゴリーごとのループ -->
+  <div th:each="catEntry : ${soundsByCategory.entrySet()}">
+    <h2 th:text="${catEntry.key}">カテゴリー名</h2>
+    <div class="sound-list">
+      <!-- 各サウンドカード -->
+      <div th:each="s : ${catEntry.value}" class="sound-card">
+        <h3 th:text="${s.label}">音源名</h3>
+        <audio 
+          th:id="|audio-${s.fileName}|"
+          th:src="@{/sounds/{f}(f=${s.fileName})}"
+          loop>
+        </audio>
+        <div class="controls">
+          <!-- 再生ボタン -->
+          <button type="button"
+                  th:attr="onclick=|playSound('${s.fileName}')|">
+            再生
+          </button>
+          <!-- 停止ボタン -->
+          <button type="button"
+                  th:attr="onclick=|stopSound('${s.fileName}')|">
+            停止
+          </button>
+          <!-- ボリュームスライダー -->
+          <input type="range" min="0" max="100" value="50"
+                 th:attr="oninput=|setVolume('${s.fileName}', this.value)|"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function playSound(name) {
+      const a = document.getElementById('audio-' + name);
+      a.play();
+    }
+    function stopSound(name) {
+      const a = document.getElementById('audio-' + name);
+      a.pause();
+      a.currentTime = 0;
+    }
+    function setVolume(name, val) {
+      document.getElementById('audio-' + name).volume = val / 100;
+    }
+  </script>
+</body>
+</html>
