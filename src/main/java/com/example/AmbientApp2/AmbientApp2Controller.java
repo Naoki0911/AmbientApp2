@@ -39,7 +39,6 @@ public class AmbientApp2Controller {
       new Sound("食卓.wav", "食卓", "生活"),
       new Sound("洗濯機.wav", "洗濯機", "生活"),
       new Sound("焚き火.wav", "焚き火", "生活"),
-      new Sound("水中.wav", "水中", "場所"),
       new Sound("電車.wav", "電車", "場所"),
       new Sound("波.wav", "波", "自然"),
       new Sound("風鈴.wav", "風鈴", "生活"),
