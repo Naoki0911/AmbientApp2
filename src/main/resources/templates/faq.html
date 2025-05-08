@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ - Ambient Maker</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<header>
+  <nav>
+    <a href="/" class="nav-link">Home</a>
+    <a th:href="@{/faq}" class="nav-link">FAQ</a>
+  </nav>
+</header>
+<body>
+  <div class="container">
+    <h1>よくある質問 (FAQ)</h1>
+
+    <div class="faq-section">
+      <h3>Q1. このアプリは無料ですか？</h3>
+      <p>A1. はい、すべての音源を無料でご利用いただけます。</p>
+
+      <h3>Q2. 音源はオフラインでも再生できますか？</h3>
+      <p>A2. 現在はオンライン再生のみ対応しています。</p>
+
+      <h3>Q3. 自分の音源をアップロードできますか？</h3>
+      <p>A3. 今後のアップデートで検討しています。</p>
+    </div>
+
+    <h2>何かあればこちらのフォームから</h2>
+    <form method="post" th:action="@{/faq}" class="faq-form">
+      <label for="email">メールアドレス：</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="question">質問内容：</label><br>
+      <textarea id="question" name="question" rows="5" required></textarea><br><br>
+
+      <button type="submit">送信</button>
+    </form>
+  </div>
+</body>
+</html>

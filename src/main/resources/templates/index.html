@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<header>
+  <nav>
+    <a href="/" class="nav-link">Home</a>
+    <a th:href="@{/faq}" class="nav-link">FAQ</a>
+  </nav>
+</header>
 <head>
   <meta charset="UTF-8"/>
   <title>Ambient Sound App</title>
@@ -15,7 +21,7 @@
 
   <!-- カテゴリーごとのループ -->
 	<div class="categories">
-	  <div class="category-section" th:each="catEntry : ${soundsByCategory.entrySet()}">
+	  <div class="category-section" th:each="catEntry : ${soundsByCategory.entrySet()}"> <!-- th:eachはfor-eathに相当 entrySet()はMapに対してループ処理を行うためにキーと値をペアにする-->
 	    <h2 th:text="${catEntry.key}">カテゴリー名</h2>
 	    <div class="sound-list">
 	      <!-- 各サウンドカード -->
@@ -23,9 +29,11 @@
 	        <h3 th:text="${s.label}">音源名</h3>
 	        <audio 
 	          th:id="|audio-${s.fileName}|"
-	          th:src="@{/sounds/{f}(f=${s.fileName})}"
+	          th:src="@{/sounds/{f}(f=${s.fileName})}" 
 	          loop>
+			  <!--@{}はURLを生成するためのThymeleafの構文 (f=${s.fileName}) → {f} の中に代入する具体的な値を指定-->
 	        </audio>
+			<!--src="/sounds/雨.wav"-->
 			<div class="button-group">
 	          <!-- 再生ボタン -->
 		      <button type="button"
@@ -33,6 +41,7 @@
 		        class="icon-btn">
 				<i class="fa-regular fa-circle-play"></i>
 		      </button>
+			  <!-- ${...} で変数を表し、それを含む文字列全体を |...| で囲むことで、文字列の中に式を展開 HTMLのonclick属性に挿入-->
 		          <!-- 停止ボタン -->
 		      <button type="button"
 		        th:attr="onclick=|stopSound('${s.fileName}')|"
@@ -51,10 +60,10 @@
 	</div>
 
 	<script>
-	  // ページロード後に全 audio 要素を列挙
+	  // ページロード後に全audio要素を列挙
 	  document.addEventListener('DOMContentLoaded', () => {
 	    document.querySelectorAll('audio').forEach(audio => {
-	      // この audio の親要素 .sound-card を取得
+	      // このaudioの親要素.sound-cardを取得
 	      const card = audio.closest('.sound-card');
 
 	      // 再生開始時

@@ -1,4 +1,4 @@
-package com.example.AmbientApp2;
+package com.example.AmbientApp2.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,6 @@ public class AmbientApp2Controller {
     // ファイル名・表示ラベル・カテゴリーを持つレコード定義
     public record Sound(String fileName, String label, String category) { }
 
-    // サンプル音源リスト（実際はもっと増やしてください）
     private final List<Sound> soundList = List.of(
       new Sound("ウミネコ.wav", "ウミネコ", "生物"),
       new Sound("カラス.wav", "カラス", "生物"),
@@ -46,14 +45,15 @@ public class AmbientApp2Controller {
       new Sound("夜の繁華街.wav", "夜の繁華街", "場所")
     );
 
-    @GetMapping("/")
-    public String index(Model model) {
+ // このメソッドの目的は音源データをカテゴリーごとに分けてindex.htmlに渡すこと
+    @GetMapping("/") 
+    public String index(Model model) {  // Model modelはSpring MVCのVに値を渡すための入れ物
         // カテゴリーごとにグループ化
         Map<String, List<Sound>> soundsByCategory =
-            soundList.stream()
-                     .collect(Collectors.groupingBy(Sound::category));
+            soundList.stream() // stream()は遅延評価と言って、collect(Collectors.〜)で呼び出されるまで実際にコレクションは生成されない
+                     .collect(Collectors.groupingBy(Sound::category)); // キーがカテゴリーで、値が同じカテゴリーのサウンドのリストとなる
 
-        model.addAttribute("soundsByCategory", soundsByCategory);
-        return "index";
+        model.addAttribute("soundsByCategory", soundsByCategory); // soundsByCategory という名前で、Map<String, List<Sound>> のデータをビュー（Thymeleafテンプレート）に渡す
+        return "index"; // templates/index.htmlを返す
     }
 }
